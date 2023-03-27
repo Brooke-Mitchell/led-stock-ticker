@@ -25,7 +25,7 @@ class Loading(Renderer):
                           self.matrix.height,
                           Position.CENTER,
                           Position.BOTTOM)
-        self.draw.text((x, y), __version__, Color.ORANGE, self.font)
+        #self.draw.text((x, y), __version__, Color.ORANGE, self.font)
 
     def render_logo(self):
         img = load_image(LOADING_IMAGE, tuple(self.coords['image']['size']))
