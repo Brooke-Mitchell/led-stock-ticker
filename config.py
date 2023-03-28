@@ -2,6 +2,7 @@
 """Software configuration script"""
 import math
 import time
+import requests
 
 import questionary
 
@@ -28,17 +29,17 @@ def get_current_preferences() -> dict:
         'show_logos': preferences['options']['show_logos']
     }
 
-
 def get_stocks(pref: str) -> list:
     """
     Get user's preferred stocks.
     :param pref (str) Current preferred stocks list
     :return: stocks: (list) List of stocks
     """
-    stocks = questionary.text('Enter stocks:',
-                              default=' '.join(DEFAULT_STOCKS) if len(pref) < 1 else pref,
-                              qmark='\U0001F4C8',
-                              instruction='(Separate each ticker by a space)').ask().upper().split()
+    stockListAll = requests.get('https://finberry-stock-simulator-server.vercel.app/game/holding?simulatorID=6410d31592fe8c435c022b01&email=test@testfin.com')
+    data2 = stockListAll.json()
+    stocks = []
+    for stock in data2:
+        stocks.append(stock['symbol'])
     return [i for n, i in enumerate(stocks) if i not in stocks[:n]]
 
 
