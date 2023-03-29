@@ -21,7 +21,7 @@ class Loading(Renderer):
         self.matrix.SetImage(self.canvas)
 
     def render_version(self):
-        x, y = align_text(self.font.getsize(__version__),
+        x, y = align_text(self.font.getsize('Brooke Mitchell'),
                           self.matrix.width,
                           self.matrix.height,
                           Position.CENTER,
@@ -29,7 +29,7 @@ class Loading(Renderer):
         userName = requests.get('https://finberry-stock-simulator-server.vercel.app/account/user?basicMode=true&email=test@testfin.com')
         userName = userName.json()
         user = userName[0]['username'] 
-        self.draw.text((x, y), 'Brooke Mitchell', Color.PURPLE, self.font)
+        self.draw.text((x, y), 'Brooke Mitchell', Color.GREEN, self.font)
         x, y = align_text(self.font.getsize(__version__),
                           self.matrix.width,
                           self.matrix.height,
