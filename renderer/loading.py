@@ -24,7 +24,7 @@ class Loading(Renderer):
         x, y = align_text(self.font.getsize(__version__),
                           self.matrix.width,
                           self.matrix.height,
-                          Position.RIGHT,
+                          Position.CENTER,
                           Position.BOTTOM)
         userName = requests.get('https://finberry-stock-simulator-server.vercel.app/account/user?basicMode=true&email=test@testfin.com')
         userName = userName.json()
@@ -33,7 +33,7 @@ class Loading(Renderer):
         x, y = align_text(self.font.getsize(__version__),
                           self.matrix.width,
                           self.matrix.height,
-                          Position.RIGHT,
+                          Position.CENTER,
                           Position.TOP)
         self.draw.text((x, y), 'FINBERRY', Color.PURPLE, self.font)
 
