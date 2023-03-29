@@ -2,7 +2,7 @@ from constants import LOADING_IMAGE
 from renderer.renderer import Renderer
 from util.color import Color
 from util.position import Position
-from util.utils import align_text, load_image, align_image
+from util.utils import align_text, load_image, align_image, off_screen
 from version import __version__
 import requests
 
@@ -29,11 +29,15 @@ class Loading(Renderer):
         userName = requests.get('https://finberry-stock-simulator-server.vercel.app/account/user?basicMode=true&email=test@testfin.com')
         userName = userName.json()
         user = userName[0]['username'] 
-        self.draw.text((x, y), 'Brooke Mitchell', Color.GREEN, self.font)
-        x, y = align_text(self.font.getsize(__version__),
+        #self.draw.text((x, y), 'Brooke Mitchell', Color.GREEN, self.font)
+        if off_screen(self.matrix.width, self.font.getsize('Brooke Mitchell')[0]):
+            self.scroll_text('Brooke Mitchell', self.font, Color.GREEN, Color.BLACK, (1, y))
+        else:
+            self.draw.text((x, y), 'Brooke Mitchell', Color.GREEN, self.font)
+        x, y = align_text(self.font.getsize('FINBERRY'),
                           self.matrix.width,
                           self.matrix.height,
-                          Position.CENTER,
+                          Position.RIGHT,
                           Position.TOP)
         self.draw.text((x, y), 'FINBERRY', Color.PURPLE, self.font)
 
