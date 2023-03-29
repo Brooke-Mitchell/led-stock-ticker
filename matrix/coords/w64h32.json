@@ -24,6 +24,17 @@
             "y": 15
         }
     },
+    "user": {
+        "options": {
+            "date": true
+        },
+        "date": {
+            "y": 8
+        },
+        "time": {
+            "y": 15
+        }
+    },
     "ticker": {
         "options": {
             "full_names": true,
