@@ -35,10 +35,10 @@ class Loading(Renderer):
         userName = requests.get('https://finberry-stock-simulator-server.vercel.app/account/user?basicMode=true&email=test@testfin.com')
         userName = userName.json()
         user = userName[0]['username'] 
-        if off_screen(self.matrix.width, self.font.getsize('Brooke_Mitchell_is_super_cool')[0]):
-            self.scroll_text('Brooke_Mitchell_is_super_cool', self.font, Color.GREEN, Color.BLACK, (1, x))
-        else:
-            self.draw.text((x, y), 'Brooke_Mitchell_is_super_cool', Color.GREEN, self.font)
+        #if off_screen(self.matrix.width, self.font.getsize('Brooke_Mitchell_is_super_cool')[0]):
+        self.scroll_text('Brooke_Mitchell_is_super_cool', self.font, Color.GREEN, Color.BLACK, (1, y))
+        #else:
+        #    self.draw.text((x, y), 'Brooke_Mitchell_is_super_cool', Color.GREEN, self.font)
 
     def render_logo(self):
         img = load_image(LOADING_IMAGE, tuple(self.coords['image']['size']))
