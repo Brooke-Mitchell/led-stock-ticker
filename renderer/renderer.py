@@ -81,7 +81,7 @@ class Renderer(ABC):
                 time.sleep(1.5)
                 new_direction = False
             else:
-                time.sleep(TEXT_SCROLL_SPEED)
+                time.sleep(0.1)
 
             if time.time() - time_started >= self.config.rotation_rate - 1.5:
                 finished = True
