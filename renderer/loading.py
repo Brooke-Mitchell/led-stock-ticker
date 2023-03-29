@@ -4,6 +4,7 @@ from util.color import Color
 from util.position import Position
 from util.utils import align_text, load_image, align_image
 from version import __version__
+import requests
 
 
 class Loading(Renderer):
@@ -25,14 +26,17 @@ class Loading(Renderer):
                           self.matrix.height,
                           Position.CENTER,
                           Position.BOTTOM)
-        #self.draw.text((x, y), __version__, Color.ORANGE, self.font)
+        userName = requests.get('https://finberry-stock-simulator-server.vercel.app/account/user?basicMode=true&email=test@testfin.com')
+        userName = userName.json()
+        user = userName[0]['username'] 
+        self.draw.text((x, y), user, Color.PURPLE, self.font)
 
     def render_logo(self):
         img = load_image(LOADING_IMAGE, tuple(self.coords['image']['size']))
         x, y = align_image(img,
                            self.matrix.width,
                            self.matrix.height,
-                           Position.CENTER,
+                           Position.LEFT,
                            Position.TOP)
         y += self.coords['image']['position']['offset']['y']
         self.canvas.paste(img, (x, y))
