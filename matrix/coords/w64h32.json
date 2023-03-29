@@ -33,6 +33,14 @@
         },
         "time": {
             "y": 15
+        },
+        "image": {
+            "size": [28, 28],
+            "position": {
+                "offset": {
+                    "y": 1
+                }
+            }
         }
     },
     "ticker": {
