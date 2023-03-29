@@ -24,12 +24,18 @@ class Loading(Renderer):
         x, y = align_text(self.font.getsize(__version__),
                           self.matrix.width,
                           self.matrix.height,
-                          Position.CENTER,
+                          Position.RIGHT,
                           Position.BOTTOM)
         userName = requests.get('https://finberry-stock-simulator-server.vercel.app/account/user?basicMode=true&email=test@testfin.com')
         userName = userName.json()
         user = userName[0]['username'] 
-        self.draw.text((x, y), user, Color.PURPLE, self.font)
+        self.draw.text((x, y), 'Brooke Mitchell', Color.PURPLE, self.font)
+        x, y = align_text(self.font.getsize(__version__),
+                          self.matrix.width,
+                          self.matrix.height,
+                          Position.RIGHT,
+                          Position.TOP)
+        self.draw.text((x, y), 'FINBERRY', Color.PURPLE, self.font)
 
     def render_logo(self):
         img = load_image(LOADING_IMAGE, tuple(self.coords['image']['size']))
