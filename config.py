@@ -35,7 +35,7 @@ def get_stocks(pref: str) -> list:
     :param pref (str) Current preferred stocks list
     :return: stocks: (list) List of stocks
     """
-    stockListAll = requests.get('https://finberry-stock-simulator-server.vercel.app/game/holding?simulatorID=6410d31592fe8c435c022b01&email=test@testfin.com')
+    stockListAll = requests.get('https://finberry-stock-simulator-server.vercel.app/game/holding?simulatorID=6410d31592fe8c435c022b01&email=brookemitchell120@gmail.com')
     data2 = stockListAll.json()
     stocks = []
     for stock in data2:
@@ -185,7 +185,7 @@ def main():
 
 
 if __name__ == '__main__':
-    '''balance = requests.get('https://finberry-stock-simulator-server.vercel.app/game/balancecalculation/balance/simulatoremail/6410d31592fe8c435c022b01/test@testfin.com')
+    '''balance = requests.get('https://finberry-stock-simulator-server.vercel.app/game/balancecalculation/balance/simulatoremail/6410d31592fe8c435c022b01/brookemitchell120@gmail.com')
     balance = balance.json()
     total = balance['stockBalance'] + balance['cashBalance']'''
     main()
