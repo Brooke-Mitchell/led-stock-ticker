@@ -36,8 +36,8 @@ class BalanceRenderer(Renderer):
         balance = requests.get('https://finberry-stock-simulator-server.vercel.app/game/balancecalculation/balance/simulatoremail/6425108e872b0491c9873188/brookemitchell120@gmail.com')
         balance = balance.json()
         total = balance['stockBalance'] + balance['cashBalance']
-        self.LossGainBalance=total-50000
-        total_string='Portfolio Value= $ '+str(total)
+        self.LossGainBalance=53000-50000
+        total_string='Total= $ '+str(total)
         GainLoss='$ '+str(self.LossGainBalance)
         x, y = align_text(self.font.getsize(total_string),
                           self.matrix.width,
