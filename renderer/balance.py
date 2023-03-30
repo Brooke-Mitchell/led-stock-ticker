@@ -39,7 +39,7 @@ class BalanceRenderer(Renderer):
         time.sleep(1)
         total=round(balance['stockBalance'],2) + round(balance['cashBalance'],2)
         self.LossGainBalance=round((total-50000),2)
-        total_string='Total= $ '+str(total)
+        total_string='Total= $ '+str(round(total,2))
         GainLoss='$ '+str(self.LossGainBalance)
         x, y = align_text(self.font.getsize(total_string),
                           self.matrix.width,
