@@ -31,7 +31,7 @@ class MainRenderer(Renderer):
         self.status = self.data.status
         self.clock = ClockRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
         self.stocks = StockRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
-        self.crypto = CryptoRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
+        #self.crypto = CryptoRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
         self.forex = ForexRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
         self.balance = BalanceRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
         self.user = UserRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
@@ -43,7 +43,7 @@ class MainRenderer(Renderer):
             try:
                 self.clock.render()
                 self.stocks.render()
-                self.crypto.render()
+                #self.crypto.render()
                 self.forex.render()
                 self.balance.render()
                 self.user.render()
