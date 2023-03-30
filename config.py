@@ -35,7 +35,7 @@ def get_stocks(pref: str) -> list:
     :param pref (str) Current preferred stocks list
     :return: stocks: (list) List of stocks
     """
-    stockListAll = requests.get('https://finberry-stock-simulator-server.vercel.app/game/holding?simulatorID=6410d31592fe8c435c022b01&email=brookemitchell120@gmail.com')
+    stockListAll = requests.get('https://finberry-stock-simulator-server.vercel.app/game/holding?simulatorID=6425108e872b0491c9873188&email=brookemitchell120@gmail.com')
     data2 = stockListAll.json()
     stocks = []
     for stock in data2:

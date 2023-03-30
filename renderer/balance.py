@@ -37,8 +37,8 @@ class BalanceRenderer(Renderer):
         balance = balance.json()
         total = balance['stockBalance'] + balance['cashBalance']
         self.LossGainBalance=total-50000
-        total_string='Portfolio Value= '+str(total)
-        GainLoss=str(self.LossGainBalance)
+        total_string='Portfolio Value= $ '+str(total)
+        GainLoss='$ '+str(self.LossGainBalance)
         x, y = align_text(self.font.getsize(total_string),
                           self.matrix.width,
                           self.matrix.height,
@@ -49,7 +49,7 @@ class BalanceRenderer(Renderer):
         x, y = align_text(self.font.getsize(GainLoss),
                           self.matrix.width,
                           self.matrix.height,
-                          Position.CENTER,
+                          Position.RIGHT,
                           Position.CENTER)
         if(self.LossGainBalance<0):
             self.draw.text((x, y), GainLoss, Color.RED, self.font)
@@ -69,6 +69,6 @@ class BalanceRenderer(Renderer):
                            self.matrix.width,
                            self.matrix.height,
                            Position.LEFT,
-                           Position.TOP)
+                           Position.CENTER)
         y += self.coords['image']['position']['offset']['y']
         self.canvas.paste(img, (x, y))
