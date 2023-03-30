@@ -185,7 +185,4 @@ def main():
 
 
 if __name__ == '__main__':
-    '''balance = requests.get('https://finberry-stock-simulator-server.vercel.app/game/balancecalculation/balance/simulatoremail/6410d31592fe8c435c022b01/brookemitchell120@gmail.com')
-    balance = balance.json()
-    total = balance['stockBalance'] + balance['cashBalance']'''
     main()

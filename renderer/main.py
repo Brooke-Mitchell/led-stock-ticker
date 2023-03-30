@@ -6,6 +6,7 @@ from renderer.forex import ForexRenderer
 from renderer.renderer import Renderer
 from renderer.stock import StockRenderer
 from renderer.user import UserRenderer
+from renderer.balance import BalanceRenderer
 
 
 class MainRenderer(Renderer):
@@ -33,6 +34,7 @@ class MainRenderer(Renderer):
         self.crypto = CryptoRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
         self.forex = ForexRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
         self.user = UserRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
+        self.balance = BalanceRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
         self.error = ErrorRenderer(self.matrix, self.canvas, self.draw, self.config, self.data)
         self.render()
 
@@ -44,6 +46,7 @@ class MainRenderer(Renderer):
                 self.crypto.render()
                 self.forex.render()
                 self.user.render()
+                self.balance.render()
                 if self.data.should_update():
                     self.status = self.data.update()
                 self.data.update_clock()
