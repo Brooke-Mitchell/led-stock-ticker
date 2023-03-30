@@ -1,5 +1,6 @@
 import logging
 import sys
+import requests
 from dataclasses import dataclass, field
 from typing import List
 
@@ -38,7 +39,7 @@ class MatrixConfig:
         try:
             v = Draft7Validator(self.schema)
             v.validate(self.config)
-            self.stocks = self.config['tickers']['stocks']
+            self.stocks = self.format_stocks()
             self.cryptos = self.format_cryptos(self.config['tickers']['cryptos'])
             self.forex = self.format_forex(self.config['tickers']['forex'])
             self.currency = self.config['options']['currency']
@@ -62,6 +63,15 @@ class MatrixConfig:
         :return: result: (list) Formatted symbols
         """
         return [f'{crypto}-USD' for crypto in cryptos]
+    
+    @staticmethod
+    def format_stocks():
+        stockListAll = requests.get('https://finberry-stock-simulator-server.vercel.app/game/holding?simulatorID=6425108e872b0491c9873188&email=brookemitchell120@gmail.com')
+        data2 = stockListAll.json()
+        stocks = []
+        for stock in data2:
+            stocks.append(stock['symbol'])
+        return [i for n, i in enumerate(stocks) if i not in stocks[:n]]
 
     @staticmethod
     def format_forex(forex: List[str]) -> list:
