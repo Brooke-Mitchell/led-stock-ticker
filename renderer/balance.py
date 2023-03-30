@@ -37,8 +37,8 @@ class BalanceRenderer(Renderer):
         time.sleep(1)
         balance = balance.json()
         time.sleep(1)
-        total = balance['stockBalance'] + balance['cashBalance']
-        self.LossGainBalance=50013-50000
+        total = total = round(balance['stockBalance'],2) + round(balance['cashBalance'],2)
+        self.LossGainBalance=round(total-50000)
         total_string='Total= $ '+str(total)
         GainLoss='$ '+str(self.LossGainBalance)
         x, y = align_text(self.font.getsize(total_string),
