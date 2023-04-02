@@ -91,6 +91,7 @@ class Ticker:
                     time.sleep(2)  # wait for 2 seconds before trying to fetch the data again
                 else:
                     return Status.SUCCESS
+            return Status.NETWORK_ERROR
         except Timeout:
             return Status.NETWORK_ERROR
 
