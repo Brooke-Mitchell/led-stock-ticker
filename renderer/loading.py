@@ -5,6 +5,7 @@ from util.position import Position
 from util.utils import align_text, load_image, align_image, off_screen
 from version import __version__
 import requests
+import time
 
 
 class Loading(Renderer):
@@ -29,6 +30,18 @@ class Loading(Renderer):
         self.draw.text((x, y), 'FINBERRY', Color.PURPLE, self.font)
         userName = requests.get('https://finberry-stock-simulator-server.vercel.app/account/user?basicMode=true&email=brookemitchell120@gmail.com')
         userName = userName.json()
+        for x in range(0, 10):  # try 10 times
+            try:
+                userName = requests.get('https://finberry-stock-simulator-server.vercel.app/account/user?basicMode=true&email=brookemitchell120@gmail.com')
+                userName = userName.json()
+                str_error = None
+            except Exception as str_error:
+                pass
+
+            if str_error:
+                time.sleep(2)  # wait for 2 seconds before trying to fetch the data again
+            else:
+                break
         user = userName[0]['username'] 
         x, y = align_text(self.font.getsize(user),
                           self.matrix.width,

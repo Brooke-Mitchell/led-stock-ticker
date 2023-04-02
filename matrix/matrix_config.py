@@ -3,6 +3,7 @@ import sys
 import requests
 from dataclasses import dataclass, field
 from typing import List
+import time
 
 from jsonschema import Draft7Validator, ValidationError
 
@@ -66,11 +67,21 @@ class MatrixConfig:
     
     @staticmethod
     def format_stocks():
-        stockListAll = requests.get('https://finberry-stock-simulator-server.vercel.app/game/holding?simulatorID=6425108e872b0491c9873188&email=brookemitchell120@gmail.com')
-        data2 = stockListAll.json()
-        stocks = []
-        for stock in data2:
-            stocks.append(stock['symbol'])
+        for x in range(0, 10):  # try 10 times
+            try:
+                stockListAll = requests.get('https://finberry-stock-simulator-server.vercel.app/game/holding?simulatorID=6425108e872b0491c9873188&email=brookemitchell120@gmail.com')
+                data2 = stockListAll.json()
+                stocks = []
+                for stock in data2:
+                    stocks.append(stock['symbol'])
+                str_error = None
+            except Exception as str_error:
+                pass
+
+            if str_error:
+                time.sleep(2)  # wait for 2 seconds before trying to fetch the data again
+            else:
+                return [i for n, i in enumerate(stocks) if i not in stocks[:n]]
         return [i for n, i in enumerate(stocks) if i not in stocks[:n]]
 
     @staticmethod
