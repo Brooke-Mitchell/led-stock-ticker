@@ -7,7 +7,7 @@ from renderer.renderer import Renderer
 from renderer.stock import StockRenderer
 from renderer.user import UserRenderer
 from renderer.balance import BalanceRenderer
-
+import time
 
 class MainRenderer(Renderer):
     """

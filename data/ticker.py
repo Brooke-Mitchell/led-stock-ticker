@@ -77,22 +77,13 @@ class Ticker:
         logging.debug(f'Fetching new data for {self.symbol}.')
 
         try:
-            for x in range(0, 10):  # try 10 times
-                try:
-                    self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
-                    self.price = self.get_price(self.quote.get('regularMarketPrice'))
-                    self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
-                    self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'
-                    self.chart_prices = self.get_chart_prices()
-                    str_error = None
-                except Exception as str_error:
-                    pass
-
-                if str_error:
-                    time.sleep(2)  # wait for 2 seconds before trying to fetch the data again
-                else:
-                    return Status.SUCCESS
-            return Status.NETWORK_ERROR
+            time.sleep(3)
+            self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
+            self.price = self.get_price(self.quote.get('regularMarketPrice'))
+            self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
+            self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'
+            self.chart_prices = self.get_chart_prices()
+            return Status.SUCCESS
         except Timeout:
             return Status.NETWORK_ERROR
 
