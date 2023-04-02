@@ -9,6 +9,7 @@ from requests import Timeout
 from constants import DEFAULT_CURRENCY
 from data.status import Status
 from util.utils import convert_currency
+import time
 
 
 @dataclass
@@ -44,17 +45,27 @@ class Ticker:
         :exception KeyError: If incorrect data type is provided as an argument. Can occur when a ticker is not valid.
         :exception Timeout: If the request timed out
         """
-        logging.debug(f'Fetching initial data for {self.symbol}.')
-        self.yq_ticker = yahooquery.Ticker(self.symbol,
-                                           status_forcelist=[404, 429, 500, 502, 503, 504],
-                                           validate=True)
-        self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
-        self.name = self.quote.get('shortName')
-        self.price = self.get_price(self.quote.get('regularMarketPrice'))
-        self.prev_close = self.quote.get('regularMarketPreviousClose')
-        self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
-        self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'
-        self.chart_prices = self.get_chart_prices()
+        for x in range(0, 10):  # try 10 times
+            try:
+                logging.debug(f'Fetching initial data for {self.symbol}.')
+                self.yq_ticker = yahooquery.Ticker(self.symbol,
+                                                status_forcelist=[404, 429, 500, 502, 503, 504],
+                                                validate=True)
+                self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
+                self.name = self.quote.get('shortName')
+                self.price = self.get_price(self.quote.get('regularMarketPrice'))
+                self.prev_close = self.quote.get('regularMarketPreviousClose')
+                self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
+                self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'
+                self.chart_prices = self.get_chart_prices()
+                str_error = None
+            except Exception as str_error:
+                pass
+
+            if str_error:
+                time.sleep(2)  # wait for 2 seconds before trying to fetch the data again
+            else:
+                break
 
     def update(self) -> Status:
         """
@@ -66,12 +77,20 @@ class Ticker:
         logging.debug(f'Fetching new data for {self.symbol}.')
 
         try:
-            self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
-            self.price = self.get_price(self.quote.get('regularMarketPrice'))
-            self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
-            self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'
-            self.chart_prices = self.get_chart_prices()
-            return Status.SUCCESS
+            for x in range(0, 10):  # try 10 times
+                try:
+                    self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
+                    self.price = self.get_price(self.quote.get('regularMarketPrice'))
+                    self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
+                    self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'
+                    self.chart_prices = self.get_chart_prices()
+                except Exception as str_error:
+                    pass
+
+                if str_error:
+                    time.sleep(2)  # wait for 2 seconds before trying to fetch the data again
+                else:
+                    return Status.SUCCESS
         except Timeout:
             return Status.NETWORK_ERROR
 
