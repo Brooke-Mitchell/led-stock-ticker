@@ -84,6 +84,7 @@ class Ticker:
                     self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
                     self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'
                     self.chart_prices = self.get_chart_prices()
+                    str_error = None
                 except Exception as str_error:
                     pass
 
