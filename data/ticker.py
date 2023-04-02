@@ -78,7 +78,20 @@ class Ticker:
 
         try:
             time.sleep(3)
-            self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
+            try:
+                self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
+            except Timeout:
+                self.yq_ticker = yahooquery.Ticker(self.symbol,
+                                                status_forcelist=[404, 429, 500, 502, 503, 504],
+                                                validate=True)
+                self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
+                self.name = self.quote.get('shortName')
+                self.price = self.get_price(self.quote.get('regularMarketPrice'))
+                self.prev_close = self.quote.get('regularMarketPreviousClose')
+                self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
+                self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'
+                self.chart_prices = self.get_chart_prices()
+                self.quote = self.yq_ticker.quotes.get(self.symbol.upper())
             self.price = self.get_price(self.quote.get('regularMarketPrice'))
             self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
             self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'

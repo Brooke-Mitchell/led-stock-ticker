@@ -41,12 +41,18 @@ class MainRenderer(Renderer):
     def render(self):
         while self.status is Status.SUCCESS:
             try:
+                time.sleep(1)
                 self.clock.render()
+                time.sleep(1)
                 self.stocks.render()
                 #self.crypto.render()
+                time.sleep(1)
                 self.forex.render()
+                time.sleep(1)
                 self.balance.render()
+                time.sleep(1)
                 self.user.render()
+                time.sleep(1)
                 if self.data.should_update():
                     self.status = self.data.update()
                 self.data.update_clock()
