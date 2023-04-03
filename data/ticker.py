@@ -73,7 +73,7 @@ class Ticker:
                 self.value_change = float(format(self.quote.get('regularMarketChange'), '.2f'))
                 self.pct_change = f'{float(self.quote.get("regularMarketChangePercent")):.2f}%'
                 self.chart_prices = self.get_chart_prices()
-            except KeyError:
+            except AttributeError:
                 self.yq_ticker = yahooquery.Ticker(self.symbol,
                                                 status_forcelist=[404, 429, 500, 502, 503, 504],
                                                 validate=True)
