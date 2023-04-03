@@ -43,7 +43,9 @@ class UserRenderer(Renderer):
             try:
                 userName = requests.get('https://finberry-stock-simulator-server.vercel.app/account/user?basicMode=true&email=brookemitchell120@gmail.com')
                 userName = userName.json()
+                user = userName[0]['username'] 
                 str_error = None
+                time.sleep(2)
             except Exception as str_error:
                 pass
 
@@ -51,7 +53,6 @@ class UserRenderer(Renderer):
                 time.sleep(2)  # wait for 2 seconds before trying to fetch the data again
             else:
                 break
-        user = userName[0]['username'] 
         x, y = align_text(self.font.getsize(user),
                           self.matrix.width,
                           self.matrix.height,

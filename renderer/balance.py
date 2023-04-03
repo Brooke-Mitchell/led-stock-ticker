@@ -39,6 +39,7 @@ class BalanceRenderer(Renderer):
                 time.sleep(1)
                 balance = balance.json()
                 time.sleep(1)
+                total=round(balance['stockBalance'],2) + round(balance['cashBalance'],2)
                 str_error = None
             except Exception as str_error:
                 pass
@@ -47,7 +48,6 @@ class BalanceRenderer(Renderer):
                 time.sleep(2)  # wait for 2 seconds before trying to fetch the data again
             else:
                 break
-        total=round(balance['stockBalance'],2) + round(balance['cashBalance'],2)
         self.LossGainBalance=round((total-50000),2)
         total_string='Total= $ '+str(round(total,2))
         GainLoss='$ '+str(self.LossGainBalance)
