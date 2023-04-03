@@ -33,21 +33,15 @@ class BalanceRenderer(Renderer):
         time.sleep(self.config.rotation_rate)
 
     def render_version(self):
-        for x in range(0, 10):  # try 10 times
-            try:
-                balance = requests.get('https://finberry-stock-simulator-server.vercel.app/game/balancecalculation/balance/simulatoremail/6425108e872b0491c9873188/brookemitchell120@gmail.com')
-                time.sleep(1)
-                balance = balance.json()
-                time.sleep(1)
-                total=round(balance['stockBalance'],2) + round(balance['cashBalance'],2)
-                str_error = None
-            except Exception as str_error:
-                pass
+        #for x in range(0, 10):  # try 10 times
+        #try:
+        balance = requests.get('https://finberry-stock-simulator-server.vercel.app/game/balancecalculation/balance/simulatoremail/6425108e872b0491c9873188/brookemitchell120@gmail.com')
+        time.sleep(1)
+        balance = balance.json()
+        time.sleep(1)
+        total=round(balance['stockBalance'],2) + round(balance['cashBalance'],2)
+        str_error = None
 
-            if str_error:
-                time.sleep(2)  # wait for 2 seconds before trying to fetch the data again
-            else:
-                break
         self.LossGainBalance=round((total-50000),2)
         total_string='Total= $ '+str(round(total,2))
         GainLoss='$ '+str(self.LossGainBalance)
